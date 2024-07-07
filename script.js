@@ -1,9 +1,29 @@
 "use strict";
 
-const itemSet = ["Apple", "Banana", "Orange", "Pear", "Plum"];
-const correctOrder = itemSet.sort(() => Math.random() - 0.5);
-const maxGuessCount = 8;
-let hasGuessed = false;
+const itemSet = ["Apple", "Banana", "Orange", "Pear"];
+const correctOrder = [...itemSet].sort(() => Math.random() - 0.5);
+const maxGuessCount = 4;
+
+const guessContainer = document.getElementById('guessBox');
+const itemContainer = document.getElementById('itemBox');
+
+itemSet.forEach((item, index) => {    
+    const cellElement = document.createElement('div');
+    cellElement.classList.add('cell');
+    cellElement.dataset.index = index;
+    guessContainer.appendChild(cellElement);
+
+    const itemElement = document.createElement('div');
+    itemElement.id = item;
+    itemElement.classList.add('item');
+    itemElement.draggable = true;
+    itemElement.innerText = item;
+    itemContainer.appendChild(itemElement);
+});
+
+document.getElementById('feedback').innerText = "You have " + maxGuessCount + " guesses left.";
+
+let hasCorrectlyGuessed = false;
 let currentGuess = [];
 let history = [];
 
@@ -92,7 +112,7 @@ function updateCurrentGuess() {
 
 document.getElementById('submitGuess').addEventListener('click', () => {
 
-    if (hasGuessed) {
+    if (hasCorrectlyGuessed) {
         return;
     }
 
@@ -120,7 +140,7 @@ document.getElementById('submitGuess').addEventListener('click', () => {
     document.getElementById('history').innerHTML = historyText;
 
     if (correctCount === correctOrder.length) {
-        hasGuessed = true;
+        hasCorrectlyGuessed = true;
         const feedback = "Congratulations! You guessed the correct order in " + history.length + " guess" + (history.length === 1 ? '' : 'es') + ".";
         document.getElementById('feedback').innerText = feedback;
         return;
