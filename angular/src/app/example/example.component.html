@@ -1,0 +1,22 @@
+<h2>Permutation Guessing Game</h2>
+<div *ngIf="!guessedCorrectly">
+    <p>Guess the correct order of the items.</p>
+    <p *ngIf="guesses.length > 0">There are {{ correctCount }} items in the correct position.</p>
+    <p>You have {{ maxGuesses - guesses.length }} guesses left.</p>
+</div>
+<div *ngIf="gameOver">Game over!</div>
+<div *ngIf="guessedCorrectly">You guessed correctly!</div>
+
+<div>
+    <p *ngFor="let guessResult of guesses">{{ guessResult }}</p>
+</div>
+
+<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+    @for (item of items; track item;)
+    {
+        <div class="example-box" [style.backgroundColor]="itemColors[item]" cdkDrag>{{item}}</div>
+    }
+</div>
+
+<button *ngIf="!gameOver && !guessedCorrectly" (click)="submit()" class="option-button" id="submitGuess">Submit guess</button>
+<button id="resetButton" class="option-button" (click)="reset()">Reset</button>
