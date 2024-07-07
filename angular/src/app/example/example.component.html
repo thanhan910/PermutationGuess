@@ -1,16 +1,24 @@
 <h2>Permutation Guessing Game</h2>
 <div *ngIf="!guessedCorrectly">
     <p>Guess the correct order of the items.</p>
+</div>
+<div>
+    <div *ngFor="let guessResult of guesses">{{ guessResult }}</div>
+</div>
+<div *ngIf="gameOver" style="color: red;">
+    <p>
+        Game over! The correct order was {{ items.join(', ') }}.
+    </p>
+</div>
+<div *ngIf="guessedCorrectly" style="color: green;">
+    <p>
+        You guessed correctly!
+    </p>
+</div>
+<div *ngIf="!gameOver && !guessedCorrectly">
     <p *ngIf="guesses.length > 0">There are {{ correctCount }} items in the correct position.</p>
     <p>You have {{ maxGuesses - guesses.length }} guesses left.</p>
 </div>
-<div *ngIf="gameOver">Game over!</div>
-<div *ngIf="guessedCorrectly">You guessed correctly!</div>
-
-<div>
-    <p *ngFor="let guessResult of guesses">{{ guessResult }}</p>
-</div>
-
 <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
     @for (item of items; track item;)
     {
