@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizontal Drag and Drop</title>
+  <style>
+    .container {
+      display: flex;
+      padding: 20px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      /* Make the container fit the content */
+        width: fit-content;
+    }
+    .item {
+      user-select: none;
+      padding: 10px;
+      margin: 0 10px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      cursor: grab;
+    }
+    .dragging {
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="item" draggable="true">Apple</div>
+    <div class="item" draggable="true">Banana</div>
+    <div class="item" draggable="true">Grape</div>
+    <div class="item" draggable="true">Orange</div>
+  </div>
+
+  <script>
+    // Vanilla JS Drag and Drop
+    const container = document.getElementById('container');
+    let draggedItem = null;
+
+    container.addEventListener('dragstart', (e) => {
+      draggedItem = e.target;
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    container.addEventListener('dragend', (e) => {
+      e.target.classList.remove('dragging');
+    });
+
+    container.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      const afterElement = getDragAfterElement(container, e.clientX);
+      if (afterElement == null) {
+        container.appendChild(draggedItem);
+      } else {
+        container.insertBefore(draggedItem, afterElement);
+      }
+    });
+
+    function getDragAfterElement(container, x) {
+      const draggableElements = [...container.querySelectorAll('.item:not(.dragging)')];
+
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = x - box.left - box.width / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+  </script>
+</body>
+</html>
