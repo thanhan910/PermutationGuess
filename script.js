@@ -1,6 +1,5 @@
 "use strict";
 
-const itemSet = ["Apple", "Banana", "Orange", "Pear", "Grape"];
 const itemColors = {
     "Apple": "red",
     "Banana": "#ffd700",
@@ -8,6 +7,7 @@ const itemColors = {
     "Pear": "green",
     "Grape": "purple"
 };
+const itemSet = new Set(Object.keys(itemColors));
 const correctOrder = [...itemSet].sort(() => Math.random() - 0.5);
 const maxGuessCount = 8;
 
