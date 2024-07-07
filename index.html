@@ -10,9 +10,9 @@
     <div class="container">
         <h1>Position Guessing Game</h1>
         <div class="game">
-            <div>
-                <p>You have <span id="guessesLeft">10</span> guesses left</p>
-            </div>
+            <div id="feedback"></div>
+            <div>You have <span id="guessesLeft">8</span> guesses left</div>
+            <div id="history"></div>
             <div class="box" id="guessBox">
                 <div class="cell" data-index="0"></div>
                 <div class="cell" data-index="1"></div>
@@ -28,8 +28,6 @@
                 <div class="item" draggable="true" id="Plum">Plum</div>
             </div>
             <button id="submitGuess">Submit Guess</button>
-            <div id="feedback"></div>
-            <div id="history"></div>
         </div>
     </div>
     <script src="script.js"></script>

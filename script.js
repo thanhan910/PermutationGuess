@@ -2,6 +2,7 @@
 
 const itemSet = ["Apple", "Banana", "Orange", "Pear", "Plum"];
 const correctOrder = itemSet.sort(() => Math.random() - 0.5);
+const maxGuessCount = 8;
 let currentGuess = [];
 let history = [];
 
@@ -90,15 +91,13 @@ function updateCurrentGuess() {
 
 document.getElementById('submitGuess').addEventListener('click', () => {
 
-    document.getElementById('guessesLeft').innerText = 9 - history.length;
-
-    if (currentGuess.includes(null)) {
-        alert("Please place all items.");
+    if (history.length >= maxGuessCount) {
+        alert("You have run out of guesses. The correct order was: " + correctOrder.join(', '));
         return;
     }
 
-    if (history.length >= 10) {
-        alert("You have run out of guesses. The correct order was: " + correctOrder.join(', '));
+    if ((currentGuess.length !== correctOrder.length) || currentGuess.includes(null)) {
+        alert("Please place all items.");
         return;
     }
 
@@ -108,7 +107,7 @@ document.getElementById('submitGuess').addEventListener('click', () => {
 
     history.push({ guess: [...currentGuess], correctCount });
 
-    const feedback = `You have ${correctCount} items in the correct position.`;
+    const feedback = `You have ${correctCount} item${correctCount === 1 ? '' : 's'} in the correct position.`;
     document.getElementById('feedback').innerText = feedback;
 
     const historyText = history.map(entry => `Guess: ${entry.guess.join(', ')} - Correct: ${entry.correctCount}`).join('<br>');
@@ -116,5 +115,13 @@ document.getElementById('submitGuess').addEventListener('click', () => {
 
     if (correctCount === correctOrder.length) {
         alert("Congratulations! You guessed the correct order!");
+        return;
+    }
+
+    document.getElementById('guessesLeft').innerText = maxGuessCount - history.length;
+
+    if (history.length >= maxGuessCount) {
+        alert("You have run out of guesses. The correct order was: " + correctOrder.join(', '));
+        return;
     }
 });
