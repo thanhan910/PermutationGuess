@@ -86,13 +86,13 @@ function drop(event) {
     const draggedItemId = event.dataTransfer.getData('text/plain');
     const targetCell = event.target;
 
-    if (targetCell.classList.contains('cell') && !targetCell.hasChildNodes()) {
-        const draggedElement = document.getElementById(draggedItemId);
-        targetCell.appendChild(draggedElement);
-        // Make the width of the cell the same as the item
-        targetCell.style.width = draggedElement.offsetWidth + 'px';
-        // Make the height of the cell the same as the item
-        targetCell.style.height = draggedElement.offsetHeight + 'px';
+    if (targetCell.classList.contains('cell')) {
+        if (!targetCell.hasChildNodes()) {
+            const draggedElement = document.getElementById(draggedItemId);
+            targetCell.appendChild(draggedElement);
+            targetCell.style.width = draggedElement.offsetWidth + 'px';
+            targetCell.style.height = draggedElement.offsetHeight + 'px';
+        }
     }
 
     targetCell.classList.remove('drag-over');
