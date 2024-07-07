@@ -1,30 +1,40 @@
-<h2>Permutation Guessing Game</h2>
-<div *ngIf="!guessedCorrectly">
-    <p>Guess the correct order of the items.</p>
-</div>
-<div>
-    <div *ngFor="let guessResult of guesses">{{ guessResult }}</div>
-</div>
-<div *ngIf="gameOver" style="color: red;">
-    <p>
-        Game over! The correct order was {{ items.join(', ') }}.
-    </p>
-</div>
-<div *ngIf="guessedCorrectly" style="color: green;">
-    <p>
-        You guessed correctly!
-    </p>
-</div>
-<div *ngIf="!gameOver && !guessedCorrectly">
-    <p *ngIf="guesses.length > 0">There are {{ correctCount }} items in the correct position.</p>
-    <p>You have {{ maxGuesses - guesses.length }} guesses left.</p>
-</div>
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-    @for (item of items; track item;)
-    {
+<div class="example-container">
+    <h2>Permutation Guessing Game</h2>
+    <div *ngIf="!guessedCorrectly">
+        <p>Guess the correct order of the items.</p>
+    </div>
+    <div>
+        <div *ngFor="let guessResult of guesses">{{ guessResult }}</div>
+    </div>
+    <div *ngIf="guessedCorrectly" style="color: green;">
+        <p>
+            You guessed correctly! The correct order was {{ items.join(', ') }}.
+        </p>
+    </div>
+    <div *ngIf="gameOver" style="color: red;">
+        <p>
+            Game over! The correct order was {{ items.join(', ') }}.
+        </p>
+    </div>
+    <div *ngIf="!gameOver && !guessedCorrectly"
+        style=" display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px;">
+        <div *ngIf="guesses.length > 0">There {{ correctCount === 1 ? 'is' : 'are' }} {{ correctCount }} item{{ correctCount === 1 ? '' : 's' }} in the correct position.</div>
+        <div>You have {{ maxGuesses - guesses.length }} guess<span *ngIf="maxGuesses - guesses.length !== 1">es</span>
+            left.</div>
+    </div>
+    <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (item of items; track item;)
+        {
         <div class="example-box" [style.backgroundColor]="itemColors[item]" cdkDrag>{{item}}</div>
-    }
-</div>
+        }
+    </div>
 
-<button *ngIf="!gameOver && !guessedCorrectly" (click)="submit()" class="option-button" id="submitGuess">Submit guess</button>
-<button id="resetButton" class="option-button" (click)="reset()">Reset</button>
+    <div class="button-zone">
+        <p>
+            <button *ngIf="!gameOver && !guessedCorrectly" (click)="submit()" class="option-button"
+                id="submitGuess">Submit
+                guess</button>
+            <button id="resetButton" class="option-button" (click)="reset()">Reset</button>
+        </p>
+    </div>
+</div>

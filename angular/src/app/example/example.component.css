@@ -1,3 +1,11 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .example-list {
     width: 500px;
     max-width: 100%;
