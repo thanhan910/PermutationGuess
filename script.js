@@ -1,6 +1,13 @@
 "use strict";
 
 const itemSet = ["Apple", "Banana", "Orange", "Pear", "Grape"];
+const itemColors = {
+    "Apple": "red",
+    "Banana": "#ffd700",
+    "Orange": "orange",
+    "Pear": "green",
+    "Grape": "purple"
+};
 const correctOrder = [...itemSet].sort(() => Math.random() - 0.5);
 const maxGuessCount = 8;
 
@@ -16,6 +23,7 @@ itemSet.forEach((item, index) => {
     const itemElement = document.createElement('div');
     itemElement.id = item;
     itemElement.classList.add('item');
+    itemElement.style.backgroundColor = itemColors[item];
     itemElement.draggable = true;
     itemElement.innerText = item;
     itemContainer.appendChild(itemElement);
@@ -142,13 +150,17 @@ document.getElementById('submitGuess').addEventListener('click', () => {
     if (correctCount === correctOrder.length) {
         hasCorrectlyGuessed = true;
         const feedback = "Congratulations! You guessed the correct order in " + history.length + " guess" + (history.length === 1 ? '' : 'es') + ".";
-        document.getElementById('feedback').innerText = feedback;
+        const feedbackElement = document.getElementById('feedback');
+        feedbackElement.innerText = feedback;
+        feedbackElement.style.color = 'green';
         return;
     }
 
     if (history.length >= maxGuessCount) {
         const feedback = "You have run out of guesses. The correct order was: " + correctOrder.join(', ');
-        document.getElementById('feedback').innerText = feedback;
+        const feedbackElement = document.getElementById('feedback');
+        feedbackElement.innerText = feedback;
+        feedbackElement.style.color = 'red';
         return;
     }
 });
