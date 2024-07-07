@@ -63,6 +63,16 @@ h1 {
     opacity: 0.5;
 }
 
+.drag-over {
+    border-color: #218838;
+    background-color: #e6ffe6;
+}
+
+#guessBox .cell.drag-over {
+    border-color: #218838;
+    background-color: #e6ffe6;
+}
+
 .cell.drag-over, .item.drag-over {
     border-color: #218838;
     background-color: #e6ffe6;
