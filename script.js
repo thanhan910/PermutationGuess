@@ -1,8 +1,8 @@
 "use strict";
 
-const itemSet = ["Apple", "Banana", "Orange", "Pear"];
+const itemSet = ["Apple", "Banana", "Orange", "Pear", "Grape"];
 const correctOrder = [...itemSet].sort(() => Math.random() - 0.5);
-const maxGuessCount = 4;
+const maxGuessCount = 8;
 
 const guessContainer = document.getElementById('guessBox');
 const itemContainer = document.getElementById('itemBox');
