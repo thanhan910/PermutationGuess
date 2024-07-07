@@ -107,8 +107,11 @@ document.getElementById('submitGuess').addEventListener('click', () => {
 
     history.push({ guess: [...currentGuess], correctCount });
 
-    const feedback = `You have ${correctCount} item${correctCount === 1 ? '' : 's'} in the correct position.`;
+    const feedback = `You have ${correctCount} item${correctCount === 1 ? '' : 's'} in the correct position. ${maxGuessCount - history.length} guess${maxGuessCount - history.length === 1 ? '' : 'es'} remaining.`;
+    
     document.getElementById('feedback').innerText = feedback;
+
+    // document.getElementById('guessesLeft').innerText = maxGuessCount - history.length;
 
     const historyText = history.map(entry => `Guess: ${entry.guess.join(', ')} - Correct: ${entry.correctCount}`).join('<br>');
     document.getElementById('history').innerHTML = historyText;
@@ -117,8 +120,6 @@ document.getElementById('submitGuess').addEventListener('click', () => {
         alert("Congratulations! You guessed the correct order!");
         return;
     }
-
-    document.getElementById('guessesLeft').innerText = maxGuessCount - history.length;
 
     if (history.length >= maxGuessCount) {
         alert("You have run out of guesses. The correct order was: " + correctOrder.join(', '));
