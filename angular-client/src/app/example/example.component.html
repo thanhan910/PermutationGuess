@@ -8,12 +8,12 @@
     </div>
     <div *ngIf="guessedCorrectly" style="color: green;">
         <p>
-            You guessed correctly! The correct order was {{ items.join(', ') }}.
+            You guessed correctly! The correct order was {{ correctGuess.join(', ') }}.
         </p>
     </div>
     <div *ngIf="gameOver" style="color: red;">
         <p>
-            Game over! The correct order was {{ items.join(', ') }}.
+            Game over! The correct order was {{ correctGuess.join(', ') }}.
         </p>
     </div>
     <div *ngIf="!gameOver && !guessedCorrectly"
