@@ -20,6 +20,9 @@ jobs:
       run: npm install
       working-directory: ./angular-client
 
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
     - name: Build
       run: ng build
       working-directory: ./angular-client
@@ -28,6 +31,6 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
         branch: gh-pages
-        folder: angular-client/dist/browser
+        folder: angular-client/dist/angular/browser
         token: ${{ secrets.GH_PAGES_DEPLOY_TOKEN }} 
         clean: true
