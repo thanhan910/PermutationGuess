@@ -30,7 +30,7 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
-        branch: gh-pages
+        branch: gh-pages-angular
         folder: angular-client/dist/angular/browser
         token: ${{ secrets.GH_PAGES_DEPLOY_TOKEN }} 
         clean: true
