@@ -9,7 +9,7 @@ const itemColors = {
 };
 const itemSet = new Set(Object.keys(itemColors));
 const correctOrder = [...itemSet].sort(() => Math.random() - 0.5);
-const maxGuessCount = 8;
+const maxGuessCount = 6;
 
 const guessContainer = document.getElementById('guessBox');
 const itemContainer = document.getElementById('itemBox');

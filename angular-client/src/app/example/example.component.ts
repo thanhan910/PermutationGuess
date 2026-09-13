@@ -24,7 +24,7 @@ export class ExampleComponent {
         "Pear": "#d1e231",
     }
 
-    maxGuesses = 8;
+    maxGuesses = 6;
 
     guessedCorrectly = false;
 
