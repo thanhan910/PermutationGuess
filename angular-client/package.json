@@ -9,31 +9,31 @@
     "build:netlify": "ng build --base-href /",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadless"
+    "test:ci": "ng test --watch=false",
+    "test:browser": "ng test --watch=false --browsers=ChromiumHeadless",
+    "audit:dependencies": "npm audit --audit-level=low"
   },
   "private": true,
+  "engines": {
+    "node": ">=24.21.0 <25"
+  },
   "dependencies": {
-    "@angular/cdk": "^18.0.6",
-    "@angular/common": "^18.0.0",
-    "@angular/compiler": "^18.0.0",
-    "@angular/core": "^18.0.0",
-    "@angular/platform-browser": "^18.0.0",
-    "@angular/platform-browser-dynamic": "^18.0.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "@angular/cdk": "^22.1.6",
+    "@angular/common": "^22.1.6",
+    "@angular/compiler": "^22.1.6",
+    "@angular/core": "^22.1.6",
+    "@angular/platform-browser": "^22.1.6",
+    "rxjs": "^7.8.2",
+    "tslib": "^2.8.1",
+    "zone.js": "~0.16.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^18.0.7",
-    "@angular/cli": "^18.0.7",
-    "@angular/compiler-cli": "^18.0.0",
-    "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.2"
+    "@angular/build": "^22.1.8",
+    "@angular/cli": "^22.1.8",
+    "@angular/compiler-cli": "^22.1.6",
+    "@vitest/browser-playwright": "^4.0.8",
+    "jsdom": "^30.0.1",
+    "typescript": "~6.0.3",
+    "vitest": "^4.0.8"
   }
 }

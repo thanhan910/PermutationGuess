@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-game',
-  standalone: true,
-  imports: [CdkDropList, CdkDrag, CommonModule],
+  imports: [CdkDropList, CdkDrag],
   templateUrl: './game.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './game.component.css'
 })
 

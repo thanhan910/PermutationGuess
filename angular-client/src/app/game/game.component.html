@@ -1,40 +1,50 @@
 <div class="game-container">
-    <h2>Permutation Guessing Game</h2>
-    <div *ngIf="!guessedCorrectly">
-        <p>Guess the correct position of the items.</p>
-    </div>
+  <h2>Permutation Guessing Game</h2>
+  @if (!guessedCorrectly) {
     <div>
-        <div *ngFor="let guessResult of guesses">{{ guessResult }}</div>
+      <p>Guess the correct position of the items.</p>
     </div>
-    <div *ngIf="guessedCorrectly" style="color: green;">
-        <p>
-            You guessed correctly! The correct order was {{ correctGuess.join(', ') }}.
-        </p>
+  }
+  <div>
+    @for (guessResult of guesses; track guessResult) {
+      <div>{{ guessResult }}</div>
+    }
+  </div>
+  @if (guessedCorrectly) {
+    <div style="color: green;">
+      <p>
+        You guessed correctly! The correct order was {{ correctGuess.join(', ') }}.
+      </p>
     </div>
-    <div *ngIf="gameOver" style="color: red;">
-        <p>
-            Game over! The correct order was {{ correctGuess.join(', ') }}.
-        </p>
+  }
+  @if (gameOver) {
+    <div style="color: red;">
+      <p>
+        Game over! The correct order was {{ correctGuess.join(', ') }}.
+      </p>
     </div>
-    <div *ngIf="!gameOver && !guessedCorrectly"
-        style=" display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px;">
-        <div *ngIf="guesses.length > 0">There {{ correctCount === 1 ? 'is' : 'are' }} {{ correctCount }} item{{ correctCount === 1 ? '' : 's' }} in the correct position.</div>
-        <div>You have {{ maxGuesses - guesses.length }} guess<span *ngIf="maxGuesses - guesses.length !== 1">es</span>
-            left.</div>
+  }
+  @if (!gameOver && !guessedCorrectly) {
+    <div
+      style=" display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px;">
+      @if (guesses.length > 0) {
+        <div>There {{ correctCount === 1 ? 'is' : 'are' }} {{ correctCount }} item{{ correctCount === 1 ? '' : 's' }} in the correct position.</div>
+      }
+      <div>You have {{ maxGuesses - guesses.length }} guess{{ maxGuesses - guesses.length === 1 ? '' : 'es' }} left.</div>
     </div>
-    <div cdkDropList cdkDropListOrientation="horizontal" class="game-list" (cdkDropListDropped)="drop($event)">
-        @for (item of items; track item;)
-        {
-        <div class="game-box" [style.backgroundColor]="itemColors[item]" cdkDrag>{{item}}</div>
-        }
-    </div>
+  }
+  <div cdkDropList cdkDropListOrientation="horizontal" class="game-list" (cdkDropListDropped)="drop($event)">
+    @for (item of items; track item) {
+      <div class="game-box" [style.backgroundColor]="itemColors[item]" cdkDrag>{{ item }}</div>
+    }
+  </div>
 
-    <div class="button-zone">
-        <p>
-            <button *ngIf="!gameOver && !guessedCorrectly" (click)="submit()" class="option-button"
-                id="submitGuess">Submit
-                guess</button>
-            <button id="resetButton" class="option-button" (click)="reset()">Reset</button>
-        </p>
-    </div>
+  <div class="button-zone">
+    <p>
+      @if (!gameOver && !guessedCorrectly) {
+        <button (click)="submit()" class="option-button" id="submitGuess">Submit guess</button>
+      }
+      <button id="resetButton" class="option-button" (click)="reset()">Reset</button>
+    </p>
+  </div>
 </div>
