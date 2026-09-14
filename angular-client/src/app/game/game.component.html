@@ -1,4 +1,4 @@
-<div class="example-container">
+<div class="game-container">
     <h2>Permutation Guessing Game</h2>
     <div *ngIf="!guessedCorrectly">
         <p>Guess the correct position of the items.</p>
@@ -22,10 +22,10 @@
         <div>You have {{ maxGuesses - guesses.length }} guess<span *ngIf="maxGuesses - guesses.length !== 1">es</span>
             left.</div>
     </div>
-    <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList cdkDropListOrientation="horizontal" class="game-list" (cdkDropListDropped)="drop($event)">
         @for (item of items; track item;)
         {
-        <div class="example-box" [style.backgroundColor]="itemColors[item]" cdkDrag>{{item}}</div>
+        <div class="game-box" [style.backgroundColor]="itemColors[item]" cdkDrag>{{item}}</div>
         }
     </div>
 

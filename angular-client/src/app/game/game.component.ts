@@ -2,19 +2,15 @@ import { Component } from '@angular/core';
 import { CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 
-/**
- * @title Drag&Drop horizontal sorting
- */
-
 @Component({
-  selector: 'app-example',
+  selector: 'app-game',
   standalone: true,
   imports: [CdkDropList, CdkDrag, CommonModule],
-  templateUrl: './example.component.html',
-  styleUrl: './example.component.css'
+  templateUrl: './game.component.html',
+  styleUrl: './game.component.css'
 })
 
-export class ExampleComponent {
+export class GameComponent {
 
     itemColors : { [key: string]: string } = {
         "Apple": "red",
@@ -24,7 +20,7 @@ export class ExampleComponent {
         "Pear": "#d1e231",
     }
 
-    maxGuesses = 6;
+    readonly maxGuesses = 6;
 
     guessedCorrectly = false;
 
@@ -48,6 +44,7 @@ export class ExampleComponent {
         this.correctGuess = Object.keys(this.itemColors).sort(() => Math.random() - 0.5);
         this.guessedCorrectly = false;
         this.gameOver = false;
+        this.correctCount = 0;
     }
 
     submit() {
