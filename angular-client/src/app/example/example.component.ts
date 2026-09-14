@@ -64,7 +64,7 @@ export class ExampleComponent {
             this.guessedCorrectly = true;
         }
         this.guesses.push(`Guess #${this.guesses.length + 1}: ${this.items.join(', ')} - Correct: ${this.correctCount}`);
-        if (this.guesses.length >= this.maxGuesses) {
+        if (!this.guessedCorrectly && this.guesses.length >= this.maxGuesses) {
             this.gameOver = true;
             return;
         }
