@@ -31,7 +31,7 @@
     "@angular/build": "^22.1.8",
     "@angular/cli": "^22.1.8",
     "@angular/compiler-cli": "^22.1.6",
-    "@vitest/browser-playwright": "^4.0.8",
+    "@vitest/browser-playwright": "^5.0.0",
     "jsdom": "^30.0.1",
     "typescript": "~6.0.3",
     "vitest": "^4.0.8"
