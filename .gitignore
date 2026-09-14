@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.angular/
+.npm-cache/
+.netlify/
+coverage/
+out-tsc/
+*.log

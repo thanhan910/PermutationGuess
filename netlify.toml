@@ -1,0 +1,7 @@
+[build]
+  base = "angular-client"
+  command = "npm run build:netlify"
+  publish = "dist/angular/browser"
+
+[build.environment]
+  NODE_VERSION = "22"
