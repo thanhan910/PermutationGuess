@@ -33,7 +33,7 @@
       <div>You have {{ maxGuesses - guesses.length }} guess{{ maxGuesses - guesses.length === 1 ? '' : 'es' }} left.</div>
     </div>
   }
-  <div cdkDropList cdkDropListOrientation="horizontal" class="game-list" (cdkDropListDropped)="drop($event)">
+  <div cdkDropList cdkDropListOrientation="horizontal" class="game-list" [style.--item-count]="items.length" (cdkDropListDropped)="drop($event)">
     @for (item of items; track item) {
       <div class="game-box" [style.backgroundColor]="itemColors[item]" cdkDrag>{{ item }}</div>
     }

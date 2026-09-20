@@ -1,3 +1,11 @@
+/* Fill the column rather than being sized by the board, so a wide row cannot
+   stretch the page on a narrow phone. */
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
 .game-container {
     display: flex;
     flex-direction: column;
@@ -8,16 +16,20 @@
 
 .game-list {
     max-width: 100%;
+    /* Let the board itself scroll when a wide row meets a narrow phone,
+       instead of pushing the page sideways. */
+    min-width: 0;
     border: solid 1px #ccc;
     display: flex;
     flex-direction: row;
     background: white;
     border-radius: 4px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .game-box {
-    padding: 10px 10px;
+    padding: 0.7em 0.5em;
     border-right: solid 1px #ccc;
     color: white;
     display: flex;
@@ -27,24 +39,22 @@
     box-sizing: border-box;
     text-align: center;
     cursor: move;
-    font-size: 14px;
+    /* The largest text that keeps the whole row on screen, never above the
+       original 14px. --item-count is set by the board below. */
+    font-size: clamp(9px, calc((100vw - 60px) / (var(--item-count, 5) * 5)), 14px);
     flex-grow: 1;
     flex-basis: 0;
-    min-width: 0;
-    overflow-wrap: anywhere;
+    /* One floor for every box, wide enough for the longest label plus its
+       padding, so the row stays even and no label breaks across lines. It is
+       set in em, so the breakpoints below resize the whole board at once. */
+    min-width: 5em;
+    white-space: nowrap;
 }
 
 .guess-log {
     max-width: 100%;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
     text-align: center;
-}
-
-@media screen and (max-width: 480px) {
-    .game-box {
-        padding: 8px 3px;
-        font-size: 11px;
-    }
 }
 
 .cdk-drag-preview {
