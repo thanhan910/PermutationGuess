@@ -1,5 +1,18 @@
 <main>
   <div class="content">
-    <app-game />
+    <nav class="size-nav" aria-label="Puzzle size">
+      <span class="size-nav-label">Items</span>
+      @for (option of sizes; track option) {
+        <a
+          class="size-link"
+          [class.is-current]="option === size"
+          [attr.aria-current]="option === size ? 'page' : null"
+          [attr.title]="option + ' items in ' + guessesFor(option) + ' guesses'"
+          [href]="option + '/'"
+          >{{ option }}</a
+        >
+      }
+    </nav>
+    <app-game [size]="size" />
   </div>
 </main>

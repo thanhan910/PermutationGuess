@@ -20,15 +20,45 @@ main {
 
 .content {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   max-width: 700px;
   margin-bottom: 3rem;
 }
 
-@media screen and (max-width: 650px) {
-  .content {
-    flex-direction: column;
-    width: max-content;
-  }
+.size-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.size-nav-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.size-link {
+  min-width: 2rem;
+  padding: 0.35rem 0.6rem;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  color: #374151;
+  text-align: center;
+  text-decoration: none;
+}
+
+.size-link:hover {
+  border-color: #9ca3af;
+  background-color: #f3f4f6;
+}
+
+.size-link.is-current {
+  border-color: hsl(134, 61%, 41%);
+  background-color: hsl(134, 61%, 41%);
+  color: white;
 }
