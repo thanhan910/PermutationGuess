@@ -1,10 +1,29 @@
 # PermutationGuess
 
-A five-item permutation guessing game with six attempts. Both hosted sites build
-the same Angular application in `angular-client/`:
+A permutation guessing game: drag the items into an order and the game reports
+how many sit in the correct position. Both hosted sites build the same Angular
+application in `angular-client/`:
 
 - GitHub Pages: https://thanhan910.github.io/PermutationGuess/
 - Netlify: https://pggame.netlify.app/
+
+## Puzzle sizes
+
+Each size is served from its own path, and the deployment root serves five items.
+So https://pggame.netlify.app/ and https://pggame.netlify.app/5/ are the same
+board, and /6/, /7/ and /8/ are the larger ones. A size-n board uses the first n
+items of `ITEM_COLORS`, so every board contains the one below it.
+
+| Items | Path | Guesses allowed | Why |
+| --- | --- | --- | --- |
+| 5 | `/` and `/5/` | 6 | the long-standing budget for this board |
+| 6 | `/6/` | 7 | proven optimum |
+| 7 | `/7/` | 8 | proven optimum |
+| 8 | `/8/` | 10 | shortest strategy found; the proven lower bound is 9 |
+
+Sizes, items, and guess budgets live in `angular-client/src/app/puzzle.ts`. The
+size list is repeated in `angular-client/scripts/build-size-pages.mjs`, which
+writes one page per size after each build; keep the two lists in step.
 
 ## Development
 
@@ -18,9 +37,10 @@ npm ci
 npm start
 ```
 
-Open http://localhost:4200/. Edit `src/app/game/` for the game logic, template,
-styles, and regression tests. The guess limit is `maxGuesses` in
-`src/app/game/game.component.ts`.
+Open http://localhost:4200/ for the five-item board, or http://localhost:4200/6/
+and so on for the larger ones. Edit `src/app/game/` for the game logic, template,
+styles, and regression tests, and `src/app/puzzle.ts` for the sizes, items, and
+guess budgets.
 
 ```sh
 npm run test:ci
@@ -34,7 +54,10 @@ npm run build:netlify
 headless Chromium through Playwright. Set `CHROME_BIN` to your installed Chrome
 executable, or install Playwright's Chromium with `npx playwright install chromium`.
 Each build writes to `angular-client/dist/angular/browser/` and replaces the
-previous build. Build output and dependencies are ignored by Git.
+previous build. Every build also copies `index.html` into a `5/`, `6/`, `7/` and
+`8/` directory, so each size is a real static page on both hosts and needs no
+rewrite rules. The pages share one bundle: the built `index.html` carries an
+absolute `<base href>`, and the app reads its size from the URL. Build output and dependencies are ignored by Git.
 
 ## Deployment
 
@@ -79,6 +102,8 @@ migration. No deployment token or committed JavaScript bundles are required.
 ## Repository layout
 
 - `angular-client/`: the maintained app and its tests.
+- `angular-client/src/app/puzzle.ts`: sizes, items, guess budgets, URL parsing.
+- `angular-client/scripts/build-size-pages.mjs`: writes one static page per size.
 - `.github/workflows/deploy-angular.yml`: GitHub Pages deployment.
 - `netlify.toml`: Netlify build configuration.
 - `game.ipynb`: the original Python experiment; not part of either deployment.
