@@ -2,10 +2,10 @@
   <h2>Permutation Guessing Game</h2>
   @if (!guessedCorrectly) {
     <div>
-      <p>Guess the correct position of the items.</p>
+      <p>Guess the correct position of the {{ size }} items.</p>
     </div>
   }
-  <div>
+  <div class="guess-log">
     @for (guessResult of guesses; track guessResult) {
       <div>{{ guessResult }}</div>
     }

@@ -1,5 +1,13 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  DEFAULT_PUZZLE_SIZE,
+  ITEM_COLORS,
+  MAX_GUESSES,
+  PuzzleSize,
+  itemsForSize,
+  shuffle,
+} from '../puzzle';
 
 @Component({
   selector: 'app-game',
@@ -11,23 +19,32 @@ import { CdkDragDrop, CdkDrag, CdkDropList, moveItemInArray } from '@angular/cdk
 
 export class GameComponent {
 
-    itemColors : { [key: string]: string } = {
-        "Apple": "red",
-        "Banana": "#ffd700",
-        "Grape": "purple",
-        "Orange": "orange",
-        "Pear": "#d1e231",
+    readonly itemColors: { [key: string]: string } = ITEM_COLORS;
+
+    private currentSize: PuzzleSize = DEFAULT_PUZZLE_SIZE;
+
+    /** How many items this board plays with. Changing it starts a new game. */
+    @Input()
+    set size(value: PuzzleSize) {
+        this.currentSize = value;
+        this.reset();
     }
 
-    readonly maxGuesses = 6;
+    get size(): PuzzleSize {
+        return this.currentSize;
+    }
+
+    get maxGuesses(): number {
+        return MAX_GUESSES[this.currentSize];
+    }
 
     guessedCorrectly = false;
 
     gameOver = false;
 
-    items = Object.keys(this.itemColors);
+    items = itemsForSize(DEFAULT_PUZZLE_SIZE);
 
-    correctGuess = Object.keys(this.itemColors).sort(() => Math.random() - 0.5);
+    correctGuess = shuffle(itemsForSize(DEFAULT_PUZZLE_SIZE));
 
     guesses : string[] = [];
 
@@ -39,8 +56,8 @@ export class GameComponent {
 
     reset() {
         this.guesses = [];
-        this.items = Object.keys(this.itemColors);
-        this.correctGuess = Object.keys(this.itemColors).sort(() => Math.random() - 0.5);
+        this.items = itemsForSize(this.currentSize);
+        this.correctGuess = shuffle(this.items);
         this.guessedCorrectly = false;
         this.gameOver = false;
         this.correctCount = 0;

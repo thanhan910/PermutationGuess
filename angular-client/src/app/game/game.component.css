@@ -30,6 +30,21 @@
     font-size: 14px;
     flex-grow: 1;
     flex-basis: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.guess-log {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+    .game-box {
+        padding: 8px 3px;
+        font-size: 11px;
+    }
 }
 
 .cdk-drag-preview {
