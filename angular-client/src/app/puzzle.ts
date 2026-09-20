@@ -10,7 +10,7 @@ export const ITEM_COLORS: { [key: string]: string } = {
   Pear: '#d1e231',
   Berry: '#2f6fdb',
   Lime: '#3f8f29',
-  Fig: '#8b5e3c',
+  Kiwi: '#8b5e3c',
 };
 
 /** Puzzle sizes the site serves. Keep in sync with `scripts/build-size-pages.mjs`. */
