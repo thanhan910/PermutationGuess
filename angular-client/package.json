@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build:github": "ng build --base-href /PermutationGuess/",
-    "build:netlify": "ng build --base-href /",
+    "build": "ng build && node scripts/build-size-pages.mjs",
+    "build:github": "ng build --base-href /PermutationGuess/ && node scripts/build-size-pages.mjs",
+    "build:netlify": "ng build --base-href / && node scripts/build-size-pages.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false",
