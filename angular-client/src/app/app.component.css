@@ -35,13 +35,6 @@ main {
   margin-bottom: 0.5rem;
 }
 
-.size-nav-label {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #6b7280;
-}
-
 .size-link {
   min-width: 2rem;
   padding: 0.35rem 0.6rem;
