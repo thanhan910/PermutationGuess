@@ -59,6 +59,24 @@ previous build. Every build also copies `index.html` into a `5/`, `6/`, `7/` and
 rewrite rules. The pages share one bundle: the built `index.html` carries an
 absolute `<base href>`, and the app reads its size from the URL. Build output and dependencies are ignored by Git.
 
+## Safari compatibility
+
+The build also targets iOS 14.5+ and desktop Safari 14.1+ via
+`angular-client/.browserslistrc`. These older versions are outside Angular 22's
+official support baseline, so this is best-effort compatibility. The device's
+iOS version matters, not just its model (such as iPhone 11).
+
+`src/polyfills.ts` supplies `Object.hasOwn` before Angular loads. Safari versions
+before 15.4 lack this API; without the fallback, Angular fails during startup and
+leaves a blank page. Browserslist handles syntax conversion, not runtime APIs.
+
+After either production build, run `npx playwright install webkit` once and
+`npm run test:safari`. This checks every puzzle size at an iPhone 11 viewport,
+including submitting and resetting, both with and without native `Object.hasOwn`.
+CI checks both deployment builds. This uses current WebKit with the missing API
+simulated; testing on an actual older iPhone is still needed to confirm its full
+compatibility.
+
 ## Deployment
 
 Both services should use the `main` branch. They build the same source separately

@@ -1,0 +1,5 @@
+# Keep Angular's current baseline, while also compiling for older iPhones.
+# Runtime APIs still need explicit polyfills; see src/polyfills.ts.
+baseline widely available on 2026-05-07
+ios_saf >= 14.5
+safari >= 14.1

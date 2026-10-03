@@ -60,8 +60,17 @@ jobs:
       - name: Build for Netlify
         run: npm run build:netlify
 
+      - name: Install WebKit
+        run: npx playwright install --with-deps webkit
+
+      - name: Test Netlify build in WebKit
+        run: npm run test:safari
+
       - name: Build for GitHub Pages
         run: npm run build:github
+
+      - name: Test GitHub Pages build in WebKit
+        run: npm run test:safari
 
       - name: Upload GitHub Pages artifact
         if: github.event_name != 'pull_request' && github.event_name != 'schedule' && github.ref == 'refs/heads/main'
