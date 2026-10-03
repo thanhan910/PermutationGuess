@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{SIZE}} items - Permutation Guessing Game</title>
+  <base href="{{BASE}}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="{{CSS}}">
+  <script defer src="{{GAME}}"></script>
+  <script defer src="{{APP}}"></script>
+</head>
+<body>
+  <main>
+    <div class="content">
+      <nav class="size-nav" aria-label="Puzzle size">{{NAV}}</nav>
+      <div class="game" data-size="{{SIZE}}">
+        <div class="game-container">
+          <h2>Permutation Guessing Game</h2>
+          <div id="instructions"><p>Guess the correct position of the {{SIZE}} items.</p></div>
+          <div class="guess-log" id="guessLog" aria-live="polite"></div>
+          <div id="result" role="status" hidden><p id="resultText"></p></div>
+          <div class="feedback" id="feedback">
+            <div id="correctFeedback" hidden></div>
+            <div id="remaining">You have {{BUDGET}} guesses left.</div>
+          </div>
+          <p id="reorderHelp" class="visually-hidden">Drag items to reorder them, or focus an item and use the left and right arrow keys.</p>
+          <div class="game-list" aria-label="Your guess" aria-describedby="reorderHelp">{{ITEMS}}</div>
+          <div id="reorderStatus" class="visually-hidden" role="status"></div>
+          <div class="button-zone"><p>
+            <button class="option-button" id="submitGuess" type="button">Submit guess</button><button class="option-button" id="resetButton" type="button">Reset</button>
+          </p></div>
+          <noscript><p>Enable JavaScript to play this game.</p></noscript>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

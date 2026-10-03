@@ -1,0 +1,22 @@
+{
+  "name": "permutation-guess",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A static permutation game for browsers from 2019 onwards",
+  "engines": { "node": ">=24.21.0 <25" },
+  "scripts": {
+    "start": "npm run build:netlify && node scripts/serve.mjs",
+    "build": "npm run build:netlify && npm run build:github",
+    "build:netlify": "node scripts/build.mjs netlify",
+    "build:github": "node scripts/build.mjs github",
+    "test": "npm run test:ci && npm run test:browser",
+    "test:ci": "node --test tests/game.test.cjs tests/compatibility.test.cjs",
+    "test:browser": "npm run build && playwright test",
+    "test:legacy": "npm run build && node tests/legacy-chromium.mjs",
+    "audit:dependencies": "npm audit --audit-level=low"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "acorn": "^8.15.0"
+  }
+}
