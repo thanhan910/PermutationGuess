@@ -1,60 +1,39 @@
 # Dependency security maintenance
 
-This project uses supported Node.js 24 LTS and Angular releases. It builds a
-static browser application; Node.js is used for development and deployment
-builds, not as a production application server.
+This site serves static HTML, CSS and JavaScript with no runtime dependencies.
+Node.js 24 LTS (at least 24.21.0) is used for development, builds and tests only.
+Playwright and Acorn are development dependencies; they are not shipped to users.
 
-## Local checks
+## Checks
 
-Select Node.js 24 before installing packages. The application directory contains
-an `.nvmrc`; the minimum patched version is recorded in `package.json` engines.
+Run from the repository root:
 
 ```sh
-cd angular-client
 npm ci
 npm run audit:dependencies
 npm run test:ci
+npx playwright install --with-deps chromium firefox webkit
 npm run test:browser
-npm run build:github
-npm run build:netlify
 ```
 
-The audit includes development and transitive dependencies, and fails for any
+The full audit includes development and transitive dependencies and fails for any
 known vulnerability rated low or above. An unavailable audit service also fails
-the check rather than reporting a clean result. `npm audit --omit=dev` can be
-used separately to inspect runtime dependencies, but does not replace the full
-audit required for deployment.
+the check. Do not replace it with an audit that omits development dependencies.
 
-## Ongoing updates
+GitHub Actions audits, tests and builds on pull requests, pushes to main, manual
+runs and daily scheduled runs. Pull requests and scheduled runs do not deploy.
+Netlify audits before building. GitHub Actions are pinned to release commit SHAs;
+checkout does not retain credentials. Dependabot checks npm and Actions weekly.
 
-- GitHub Actions audits, tests, and builds on pull requests, pushes to `main`,
-  manual runs, and a daily schedule. Pull requests and scheduled runs do not
-  deploy. GitHub Pages deployment depends on these checks passing.
-- Netlify audits dependencies before its production build.
-- Dependabot checks npm dependencies and GitHub Actions weekly. Related Angular,
-  TypeScript, and Zone.js updates are grouped for compatibility review.
-- GitHub Actions are pinned to release commit SHAs, with version comments so
-  Dependabot can propose updates. Checkout does not retain Git credentials.
-- Both deployment platforms select Node.js 24, allowing new LTS patches to be
-  picked up on subsequent builds. Review the Node minimum version in
-  `package.json` when Node security releases are published.
-
-Review update pull requests and merge them after the audit, browser tests, and
-both builds pass. Use Angular's migration tools for major upgrades. Do not use
-`npm audit fix --force` or disable peer-dependency validation to hide findings.
+Merge dependency updates after the audit, game tests and browser tests pass.
+Retain the ES5 syntax and old-browser API/layout constraints when editing browser
+code. Test legacy browsers separately from the current Playwright engines.
+Archived browser binaries used for optional compatibility tests are not part of
+the site or npm dependencies; keep them isolated from normal browsing.
 
 Repository owners should enable Dependabot alerts/security updates and require
-the workflow's `build` check before merging into `main`. These GitHub account
-settings are separate from the files committed here. Configure workflow failure
-notifications so new advisories found by scheduled runs are reviewed.
+the workflow's build check before merging into main. Node 24 selects new LTS
+patches in both hosts; review the minimum version after security releases.
 
-## Evidence and limits
-
-Keep the lockfile, reviewed update commits, CI logs, and audit results as evidence
-of maintenance. For an inventory, run `npm sbom --sbom-format cyclonedx` from
-`angular-client/` and save the output with the relevant release records.
-
-An npm audit checks published advisories for npm dependencies. It does not prove
-the absence of vulnerabilities, assess all application code or hosting settings,
-or certify compliance with a specific standard. No compliance standard has been
-specified for this project.
+The lockfile, CI logs and audit results document dependency maintenance. An npm
+audit does not prove the absence of vulnerabilities or assess hosting settings.
