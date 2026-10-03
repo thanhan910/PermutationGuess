@@ -1,23 +1,19 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: /angular-client
+    directory: /
     schedule:
       interval: weekly
     groups:
-      angular:
+      browser-tests:
         patterns:
-          - "@angular/*"
-          - "@angular-devkit/*"
-          - "typescript"
-          - "zone.js"
-      angular-security:
+          - "@playwright/*"
+          - "playwright*"
+      browser-test-security:
         applies-to: security-updates
         patterns:
-          - "@angular/*"
-          - "@angular-devkit/*"
-          - "typescript"
-          - "zone.js"
+          - "@playwright/*"
+          - "playwright*"
   - package-ecosystem: github-actions
     directory: /
     schedule:

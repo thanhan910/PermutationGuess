@@ -1,7 +1,7 @@
 [build]
-  base = "angular-client"
+  base = "."
   command = "npm run audit:dependencies && npm run build:netlify"
-  publish = "dist/angular/browser"
+  publish = "dist/netlify"
 
 [build.environment]
   NODE_VERSION = "24"

@@ -7,3 +7,5 @@ dist/
 coverage/
 out-tsc/
 *.log
+test-results/
+playwright-report/
