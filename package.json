@@ -16,7 +16,7 @@
     "audit:dependencies": "npm audit --audit-level=low"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.64.0",
     "acorn": "^8.15.0"
   }
 }
